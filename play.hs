@@ -1,5 +1,15 @@
 -- Haskell
 
+{-
+    These are my notes from learning Haskell at lunch time while following http://learnyouahaskell.com
+    So this can be considered a very condensed version of that resource.
+
+    You can compile this code by installing ghc and running 
+
+    $ > ghc play.hs
+    $ > ./play
+-}
+
 -- Functions
 
 -- Simple function
@@ -47,6 +57,59 @@ multiParams x y = x + y
 
 -}
 
+{- Pattern Matching
+
+    Pattern matching is almost like a mix between overloading and a switch case statement
+    for example, lets write a function that takes in a integer and then returns the integer 
+    unless its the number 2 in which case it will return -1
+-}
+
+replaceTwos :: (Integral a) => a -> a
+replaceTwos 2 = -1
+replaceTwos x = x
+
+{- Guards
+
+    Pattern matching is a way to make sure a value conforms to some schema, guards tell wether 
+    some property of a value is true or false, very similar to an if statement. We are going to 
+    write a function that tells you how bad your PR is given the number of files involved.
+
+    Where the conditions in pattern match to a particular value each condition in a guard is an
+    expression based on the current input that resolves to a value
+
+    The "Otherwise" condition is just syntactic sugar as otherwise under the hood is defined as True
+-}
+
+prTell :: (Integral a) => a -> String
+prTell fileCount
+    | fileCount <= 5 = "Wow, so granular great work, you are my hero"
+    | fileCount > 5 && fileCount <= 25 = "A solid peice of work"
+    | otherwise = "You have brought shame to your family name and the punishment is death"
+
+-- Another example, a custom implementation of the max function
+
+customMax :: (Integral a) => a -> a -> a
+customMax x y
+    | x > y = x
+    | otherwise = y
+
+{- Bindings with "Where" 
+
+    We can sometimes prevent ourselves from repeating ourselves in guards by using a where.
+    Where clauses can be extended to have multiple declarations in them.
+    Where clause declaration names are confined to the parent scope they are not global
+-}
+
+dumbFunc :: (Integral a) => a -> a -> String
+dumbFunc x y
+    | sumVals < minimum = "The result is less than 10"
+    | sumVals < maximum = "The result is less than 20"
+    where   sumVals = x + y
+            minimum = 10
+            maximum = 20
+
+{- Next: Let bindings -}
+
 -- Main function, root of program
 main = do
     -- Tuples
@@ -66,6 +129,8 @@ main = do
     print (multiParams 10 11)
     print "simpleComprehension"
     print (simpleComprehension [100, 50, 1, 9, 22])
+    print "Pattern Matching"
+    print (replaceTwos 2)
 
 
 
