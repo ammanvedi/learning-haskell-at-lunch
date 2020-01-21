@@ -151,17 +151,15 @@ calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
 
 -}
 
-iHateTheLetterA :: Char -> Char
+iHateTheLetterA :: (Char a) => a -> a
 iHateTheLetterA 'a' = 'I'
 iHateTheLetterA x = x
 
 {- And now case -}
 
-iHateLetterAToo :: Char -> Char
+iHateLetterAToo :: (Char a) => a -> a
 iHateLetterAToo letter = case letter of 'a' -> 'I'
                                         (x) -> x
-
-{- Next: Recursion -}
 
 -- Main function, root of program
 main = do
