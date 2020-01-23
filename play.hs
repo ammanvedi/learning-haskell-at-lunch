@@ -161,7 +161,48 @@ iHateLetterAToo :: Char -> Char
 iHateLetterAToo letter = case letter of 'a' -> 'I'
                                         (x) -> x
 
-{- Next: Recursion -}
+{- Curried Functions
+
+    Every function in haskell accepts only one parameter, for example when we do 
+
+    max 10 11
+
+    we are actually doing (max 10) 11
+
+    This is also an explanation of the wierd way that haskell does type signatures, you know how there seems
+    to be no distinction between the parameter and the return un terms of formatting...
+
+    (Integral a) => a -> a -> a
+
+    is the signature of a function that takes in two arguments, well , this can also be written as
+
+    (Integral a) => a -> (a -> a)
+
+    ie the function is actually taking in a single value and then returning a function that returns another
+    function that returns a final value
+
+    The intuition you need here seems to be that if you call a function with too few arguments you actually
+    get returned a new function which has some arguments already bound, you might be able to think of this
+    like using Function.prototype.bind in JS
+
+    For example we could write a whole new function to compare numbers to 100, or we could just use this 
+    fact we just learnt
+-}
+
+let boundCompare = compare 100
+
+{-
+    and then we use for example
+    
+    boundCompare 90
+
+    to compare values to 100
+
+    NEWSFLASH!! You can also -partially apply infix functions, e.g. / + - etc
+-}
+
+divideByTen :: (Floating a) => a -> a  
+divideByTen = (/10)  
 
 -- Main function, root of program
 main = do
